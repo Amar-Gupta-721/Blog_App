@@ -1,12 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import appwriteService from '../appwrite/config'
 import { Container, PostCard } from '../components'
 
 
 function AllPosts() {
     const [posts, setPosts] = useState([])
-    useEffect(()=>{},[])
-    // getPosts ke andr jo empty array pass kiya hai usi me sare posts ayenge
     appwriteService.getPosts([]).then((posts)=>{
         if(posts){
             setPosts(posts.documents)
@@ -18,7 +16,7 @@ function AllPosts() {
             <div className="flex flex-wrap">
                 {posts.map((post)=>(
                     <div key={post.$id} className='p-2 w-1/4'>
-                        <PostCard post={post}/>
+                        <PostCard {...post}/>
                     </div>
                 ))}
             </div>
