@@ -53,17 +53,18 @@ function PostForm({post}) {
       }
     }
 
-    // Even though slugTransform has no dependencies and doesn't change, wrapping it with useCallback can still provide a performance benefit. It ensures that the function reference remains constant across renders, which is beneficial if slugTransform is used as a dependency in other hooks like useEffect.
-    const slugTransform = useCallback((value)=>{
-      if(value && typeof value === 'string') 
+    const slugTransform = useCallback((value) => {
+    if (value && typeof value === 'string') {
       return value
         .trim()
         .toLowerCase()
-        .replace(/^[a-zA-Z\d\s]+/g,'-')
-        .replace(/\s/g,'-')
-
-      return ''
-    },[])
+        .replace(/[^\w\s-]/g, '') // Remove any non-word characters except spaces and hyphens
+        .replace(/\s+/g, '-') // Replace spaces with hyphens
+        .replace(/-+/g, '-') // Replace multiple hyphens with a single hyphen
+        .replace(/^-+|-+$/g, ''); // Remove leading and trailing hyphens
+    }
+    return '';
+  }, []);
 
     useEffect(()=>{
       const subscription = watch((value,{name})=>{
@@ -126,7 +127,7 @@ function PostForm({post}) {
       className="mb-4"
       {...register("status",{required:true})}
       />
-      <Button type="submit" className={`w-full ${post?"bg-green-500":undefined}`}/>   
+      <Button children="Submit" type="submit" className={`w-full ${post?"bg-green-500":undefined}`}/>   
       {/* bgColor={post?"bg-green-500":undefined} className="w-full" */}
       </div>
     </form>
