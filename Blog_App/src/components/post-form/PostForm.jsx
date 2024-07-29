@@ -35,7 +35,6 @@ function PostForm({post}) {
           navigate(`/post/${dbPost.$id}`)
         }
       }else{
-        //Todo : improve this
         const file = await appwriteService.uploadFile(data.image[0]);
 
         if(file){
@@ -128,7 +127,6 @@ function PostForm({post}) {
       {...register("status",{required:true})}
       />
       <Button children="Submit" type="submit" className={`w-full ${post?"bg-green-500":undefined}`}/>   
-      {/* bgColor={post?"bg-green-500":undefined} className="w-full" */}
       </div>
     </form>
   )
