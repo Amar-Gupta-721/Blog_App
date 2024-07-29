@@ -1,6 +1,5 @@
 import React from 'react'
 import {useDispatch} from 'react-redux'
-// may have error
 import authService from '../../appwrite/auth'
 import {logout} from '../../store/authSlice'
 
