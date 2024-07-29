@@ -9,7 +9,6 @@ function Select({
     const id = useId()
   return (
     <div className='w-full'>
-        {/* {label} may not be included */}
         {label && <label htmlFor={id} className={`${className}`}>{label}</label>}
         <select 
         {...props}
