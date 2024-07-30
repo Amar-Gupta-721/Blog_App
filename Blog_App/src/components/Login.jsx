@@ -19,7 +19,7 @@ function Login() {
             if(session){
                 const userData = await authService.getCurrentUser()
                 if(userData)dispatch(authLogin(userData));
-                navigate("/")
+                setTimeout(()=>(navigate("/")),0)
             }
         } catch (error) {
             setError(error.message)
@@ -30,14 +30,8 @@ function Login() {
     <div 
     className='flex items-center justify-center w-full'
     >
-        {/* use `` in className */}
         <div className="mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10"
         >
-        <div className="mb-2 flex justify-center">
-            <span className="inline-block w-full max-w-[100px]">
-                <Logo width="100%"/>
-            </span>
-        </div>  
         <h2 className="text-center text-2xl font-bold leading-tight">
         Sign in to your account </h2>  
             <p className="mt-2 text-center text-base text-black/60">
@@ -74,7 +68,7 @@ function Login() {
                     />
                     <Button
                     type="submit"
-                    className="w-full"
+                    className="w-full transition ease-in-out delay-10 bg-blue-500 hover:scale-105 hover:bg-blue-900 duration-200 active:bg-blue-300"
                     children="Sign in"
                     ></Button>
                 </div>
