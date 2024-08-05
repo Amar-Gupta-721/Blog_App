@@ -36,7 +36,7 @@ const Header = () => {
     }
   ]
   return (
-    <header className='py-3 shadow bg-gray-500'>
+    <header className='py-3 shadow bg-neutral-900'>
       <Container>
         <nav className='flex'>
           <div className='mr-4'>
@@ -50,7 +50,7 @@ const Header = () => {
               <li key={item.name}>
                 <button
                 onClick={()=>navigate(item.slug)}
-                className='inline-block px-6 py-2 duration-200 hover:bg-blue-100 rounded-full'
+                className='text-neutral-50 inline-block mx-2 px-6 py-2 duration-200 hover:bg-neutral-300 hover:text-neutral-950 focus:border border-neutral-100 rounded-full'
                 >{item.name}</button>
               </li>
             ):(null)
