@@ -1,3 +1,4 @@
+
 import conf from '../conf/conf.js';
 import { Client, Account, ID } from 'appwrite';
 
@@ -17,10 +18,8 @@ export class AuthService {
             // Create user account
             const userAccount = await this.account.create(ID.unique(), email, password, name);
             if (userAccount) {
-                // Log in the user
                 await this.login({ email, password });
 
-                // Send verification email
                 await this.sendVerificationEmail();
                 return userAccount;
             } else {
