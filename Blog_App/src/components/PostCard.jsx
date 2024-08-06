@@ -26,10 +26,13 @@ function PostCard({post}) {
             <div className='w-3/5 text-left xl:px-0 lg:px-4 md:px-2 py-3'
             >
               <h4 className='text-neutral-500 lg:text-xl md:text-lg sm:text-sm'>Date : {date}</h4>
-                <Link to={`/post/${post.$id}`}>
+              <Link to={`/post/${post.$id}`}>
                 <h2 className='py-2 capitalize lg:text-4xl md:text-3xl sm:text-2xl'>{post.title}</h2>
-                </Link>
+              </Link>
               <h4 className='text-neutral-500 lg:text-xl md:text-lg sm:text-sm'>Created By : {post?.userName || "User"}</h4>
+              <Link to={`/post/${post.$id}`}>
+                  <Button children={"Read More"} className='mt-3'/>
+              </Link>
             </div>
           </div>
         </div>
