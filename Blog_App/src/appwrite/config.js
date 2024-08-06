@@ -19,7 +19,7 @@ export class Service{
             return await this.databases.createDocument(
                 conf.appwriteDatebaseId,
                 conf.appwriteCollectionId,
-                slug,       // is a documentId
+                slug,     
                 {
                     title,
                     content,
@@ -79,12 +79,11 @@ export class Service{
         }
     }
 
-    async getPosts(queries = [Query.equal("status","active")]){
+    async getPosts(){  
         try {
             return await this.databases.listDocuments(
                 conf.appwriteDatebaseId,
                 conf.appwriteCollectionId,
-                queries
             )
         } catch (error) {
             console.log("Appwrite service :: getPosts :: error ",error);
