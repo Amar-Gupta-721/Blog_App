@@ -14,6 +14,8 @@ export default function Post() {
     
     const isAuthor = post && userData ? post.userId === userData.$id : false;
 
+    console.log(post)
+
     useEffect(()=>{
         if(slug){
             appwriteService.getPost(slug).then((post)=>{
@@ -45,15 +47,19 @@ export default function Post() {
                     {isAuthor && (
                         <div className="absolute right-6 top-6">
                             <Link to={`/edit-post/${post.$id}`}>
+
+                                {console.log("Edit button post :    "+post)}
+                                
                                 <Button 
-                                bgColor = "bg-green-500"
-                                className="mr-3"
+                                bgColor = "bg-neutral-900"
+                                className="mr-3 hover:bg-neutral-600 active:text-black active:bg-white active:border-2 border-neutral-800"
                                 >
                                     Edit
                                 </Button>
                             </Link>
                             <Button
-                            bgColor="bg-red-500"
+                            bgColor="bg-neutral-900"
+                            className='mr-3 hover:bg-neutral-600 active:text-black active:bg-white active:border-2 border-neutral-800'
                             onClick = {deletePost}
                             >
                                 Delete
@@ -72,4 +78,3 @@ export default function Post() {
         </div>
     ) : null;
 }
-
