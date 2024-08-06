@@ -2,24 +2,51 @@ import React, {useState, useEffect} from 'react'
 import appwriteService from '../appwrite/config'
 import { Container, PostCard } from '../components'
 import { useSelector } from 'react-redux'       
-import { useNavigate } from 'react-router-dom'  
-import { Link } from 'react-router-dom' 
+import { Link } from 'react-router-dom'
 
 function Home() {
     const userData = useSelector(state=>state.auth.userData)    
-    const navigate = useNavigate()
     const [posts, setPosts] = useState([])
-    
-    useEffect(()=>{
-        if(userData){       
-            appwriteService.getPosts().then((posts)=>{
-                if(posts){
-                    setPosts(posts.documents)
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        if (userData) {       
+            appwriteService.getPosts().then((posts) => {
+                if (posts) {
+                    const active = posts.documents.filter(post => post.status=='active');
+                    setPosts(active)
                 }
+                setLoading(false) 
+            }).catch(() => {
+                setLoading(false)
             })
-            navigate("/")
-        }  
-    },[])
+        }
+        else{
+            setLoading(false)
+        }
+    }, [userData])//
+
+    if (loading) {
+        return (
+            <div className="w-full py-8 mt-4 text-center">
+                <Container>
+                    <h1 className="text-2xl font-bold">Loading...</h1>
+                </Container>
+            </div>
+        )
+    }
+
+  if(userData==null)return (
+    <div className="w-full py-8 mt-4 text-center">
+        <Container>
+            <Link to="/login">
+                <h1 className="text-2xl font-bold hover:text-gray-500">
+                    Login to read posts
+                </h1>
+            </Link>
+        </Container>
+    </div>
+  )
 
   if(posts.length === 0){
     return (
@@ -27,10 +54,12 @@ function Home() {
             <Container>
                 <div className="flex flex-wrap">
                     <div className="p-2 w-full">
-                        <Link to="/login">
-                            <h1 className="text-2xl font-bold hover:text-gray-500">
-                                Login to read posts
-                            </h1>
+                        <h1 className="text-2xl font-bold hover:text-gray-500">
+                            No post has been created Yet...
+                        </h1>
+                        <br />
+                        <Link to='/add-post'>
+                            <span className='text-4xl font-bold underline text-neutral-700 hover:text-neutral-950 '>Add some Post..</span>
                         </Link>
                     </div>
                 </div>
@@ -43,8 +72,8 @@ function Home() {
         <Container>
             <div className="flex flex-wrap">
                 {posts.map((post)=>(
-                    <div key={post.$id} className="p-2 lg:w-1/4 sm:w-1/2">
-                        <PostCard {...post}/>
+                    <div key={post.$id} className="p-2 w-full">
+                        <PostCard post={post}/>
                     </div>
                 ))}
             </div>
